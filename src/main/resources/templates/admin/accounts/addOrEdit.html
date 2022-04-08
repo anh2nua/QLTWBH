@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{admin/dashboardLayout.html}"
+>
+
+  <head>
+        
+  </head>
+
+    <body class="col-12">
+       
+          <section class="row" layout:fragment="content">
+              <div class="col-6 offset-3 mt-4 ">
+            <form th:action="@{/admin/accounts/saveOrUpdate}" method="post" th:object="${account}">
+                <div class="card">
+                    <div class="card-header">
+                      <h2 th:text="${account.isEdit ? 'Edit Account' : 'Add New Account'}">Add New Account</h2>
+                    </div>
+                    <div class="card-body">
+                      <input type="hidden" th:field="*{isEdit}">
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text"
+                          class="form-control" th:field="*{username}"
+                          name="username" id="username" aria-describedby="usernameHId" placeholder="Username">
+                        <small id="usernameHId" th:if="${#fields.hasErrors('username')}" class="form-text text-muted">Your name cannot be blank</small>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password"
+                          class="form-control"th:field="*{password}"
+                           name="password" id="password" aria-describedby="passwordHId" placeholder="Password">
+                        <small id="passwordHId"
+                        th:if="${#fields.hasErrors('password')}" class="form-text text-muted">Password can not be blank</small>
+                      </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        
+                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                        <a th:href="@{/admin/accounts}"  class="btn btn-outline-danger" >List Account</a>
+                        <button class="btn btn-outline-primary">
+                          <span th:if="${account.isEdit}">Update</span>
+                          <span th:unless="${account.isEdit}">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+          </section>
+              </body>
+</html>
